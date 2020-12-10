@@ -3,6 +3,7 @@ package com.example.examenanimations;
 import android.animation.AnimatorSet;
 import android.animation.ArgbEvaluator;
 import android.animation.ObjectAnimator;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 
@@ -35,25 +36,34 @@ public class MainActivity extends AppCompatActivity {
         final int color3 = Color.YELLOW;
         final int color4 = Color.BLACK;
 
+        sky.setBackgroundColor(color1);
+
         sky.setOnClickListener(new View.OnClickListener() {
 
+            @Override
+            public void onClick(View v) {
                 int limit = sky.getHeight();
 
                 ObjectAnimator animY = ObjectAnimator.ofFloat(sun, "y", limit);
                 animY.setDuration(3000);
-                AnimatorSet animSetXY = new AnimatorSet();
 
-                ObjectAnimator animSky1 = ObjectAnimator.ofObject(sky, "backgroundColor", new ArgbEvaluator(), color1, color2).setDuration(300);
-                ObjectAnimator animSky2 = ObjectAnimator.ofObject(sky, "backgroundColor", new ArgbEvaluator(), color2, color3).setDuration(300);
-                ObjectAnimator animSky3 = ObjectAnimator.ofObject(sky, "backgroundColor", new ArgbEvaluator(), color3, color4).setDuration(300);
+                ObjectAnimator animSky1 = ObjectAnimator.ofObject(sky, "backgroundColor", new ArgbEvaluator(), color1, color2).setDuration(1500);
+                ObjectAnimator animSky2 = ObjectAnimator.ofObject(sky, "backgroundColor", new ArgbEvaluator(), color2, color3).setDuration(1500);
+                ObjectAnimator animSky3 = ObjectAnimator.ofObject(sky, "backgroundColor", new ArgbEvaluator(), color3, color4).setDuration(1500);
 
-                animSetXY.playTogether(animSky1, animY);
-                animSetXY.start();
+                AnimatorSet skyChange = new AnimatorSet();
 
+                skyChange.playSequentially(animSky1,animSky2,animSky3);
+
+                AnimatorSet animSet = new AnimatorSet();
+                animSet.playTogether(skyChange, animY);
+
+                animSet.start();
 
             }
         });
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -70,7 +80,17 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.secondary_activity) {
+            Intent a = new Intent(getApplicationContext(),Activity2.class);
+            a.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+            startActivity(a);
+            return true;
+        }
+
+        if (id == R.id.primary_activity) {
+            Intent a = new Intent(getApplicationContext(),MainActivity.class);
+            a.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+            startActivity(a);
             return true;
         }
 

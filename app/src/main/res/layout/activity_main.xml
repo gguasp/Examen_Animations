@@ -23,8 +23,8 @@
 
     <FrameLayout
         android:id="@+id/sky"
-        android:layout_width="410dp"
-        android:layout_height="386dp"
+        android:layout_width="414dp"
+        android:layout_height="387dp"
         android:background="#33B8FF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -42,6 +42,16 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:srcCompat="@drawable/sun" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="453dp"
+        android:layout_height="340dp"
+        android:background="#3F51B5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sky">
+
     </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
